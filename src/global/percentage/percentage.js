@@ -3,6 +3,7 @@
 var validators = require('../../helpers/validators');
 var NumberMasks = require('../../helpers/number-mask-builder');
 var PreFormatters = require('../../helpers/pre-formatters');
+var setSelection = require('../../helpers/set-selection');
 
 function preparePercentageToFormatter(value, decimals, modelMultiplier) {
 	return PreFormatters.clearDelimitersAndLeadingZeros((parseFloat(value)*modelMultiplier).toFixed(decimals));
@@ -93,6 +94,7 @@ function PercentageMaskDirective($locale) {
 				if (ctrl.$viewValue !== formatedValue) {
 					ctrl.$setViewValue(formatedValue);
 					ctrl.$render();
+					setSelection(element);
 				}
 
 				return actualNumber;

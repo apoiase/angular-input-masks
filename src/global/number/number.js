@@ -3,6 +3,7 @@
 var validators = require('../../helpers/validators');
 var NumberMasks = require('../../helpers/number-mask-builder');
 var PreFormatters = require('../../helpers/pre-formatters');
+var setSelection = require('../../helpers/set-selection');
 
 function NumberMaskDirective($locale, $parse) {
 	return {
@@ -48,6 +49,7 @@ function NumberMaskDirective($locale, $parse) {
 				if (ctrl.$viewValue !== formatedValue) {
 					ctrl.$setViewValue(formatedValue);
 					ctrl.$render();
+					setSelection(element);
 				}
 
 				return actualNumber;

@@ -1,5 +1,7 @@
 'use strict';
 
+var setSelection = require('./set-selection');
+
 module.exports = function maskFactory(maskDefinition) {
 	return function MaskDirective() {
 		return {
@@ -26,6 +28,7 @@ module.exports = function maskFactory(maskDefinition) {
 					if (ctrl.$viewValue !== formattedValue) {
 						ctrl.$setViewValue(formattedValue);
 						ctrl.$render();
+						setSelection(element);
 					}
 
 					if (angular.isUndefined(maskDefinition.getModelValue)) {

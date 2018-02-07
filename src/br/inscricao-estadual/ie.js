@@ -2,6 +2,7 @@
 
 var StringMask = require('string-mask');
 var BrV = require('br-validations');
+var setSelection = require('../../helpers/set-selection');
 
 var ieMasks = {
 	'AC': [{mask: new StringMask('00.000.000/000-00')}],
@@ -103,6 +104,7 @@ function BrIeMaskDirective($parse) {
 				if (ctrl.$viewValue !== formatedValue) {
 					ctrl.$setViewValue(formatedValue);
 					ctrl.$render();
+					setSelection(element);
 				}
 
 				if (state && state.toUpperCase() === 'SP' && /^p/i.test(value)) {

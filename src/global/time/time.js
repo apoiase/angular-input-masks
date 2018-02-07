@@ -1,6 +1,7 @@
 'use strict';
 
 var StringMask = require('string-mask');
+var setSelection = require('../../helpers/set-selection');
 
 module.exports = function TimeMaskDirective() {
 	return {
@@ -39,6 +40,7 @@ module.exports = function TimeMaskDirective() {
 				if (ctrl.$viewValue !== viewValue) {
 					ctrl.$setViewValue(viewValue);
 					ctrl.$render();
+					setSelection(element);
 				}
 
 				return modelValue;

@@ -3,6 +3,7 @@
 var StringMask = require('string-mask');
 var validators = require('../../helpers/validators');
 var PreFormatters = require('../../helpers/pre-formatters');
+var setSelection = require('../../helpers/set-selection');
 
 function MoneyMaskDirective($locale, $parse) {
 	return {
@@ -65,7 +66,7 @@ function MoneyMaskDirective($locale, $parse) {
 					return value;
 				}
 				if (angular.isDefined(attrs.uiIntegerModel)) {
-						value = value / Math.pow(10, decimals);
+					value /= Math.pow(10, decimals);
 				}
 				var prefix = (angular.isDefined(attrs.uiNegativeNumber) && value < 0) ? '-' : '';
 				var valueToFormat = PreFormatters.prepareNumberToFormatter(value, decimals);
@@ -110,17 +111,18 @@ function MoneyMaskDirective($locale, $parse) {
 				if (value !== formatedValue) {
 					ctrl.$setViewValue(formatedValue);
 					ctrl.$render();
+					setSelection(element);
 				}
 
 				var retValue = parseInt(formatedValue.replace(/[^\d\-]+/g,''));
 				if (!isNaN(retValue)) {
-						if (!angular.isDefined(attrs.uiIntegerModel)) {
-								retValue = retValue / Math.pow(10, decimals);
-						}
-						return retValue;
-				} else {
-						return null;
+					if (!angular.isDefined(attrs.uiIntegerModel)) {
+						retValue /= Math.pow(10, decimals);
+					}
+					return retValue;
 				}
+				return null;
+
 			}
 
 			ctrl.$formatters.push(formatter);

@@ -4,6 +4,7 @@ var formatDate = require('date-fns/format');
 var parseDate = require('date-fns/parse');
 var isValidDate = require('date-fns/isValid');
 var StringMask = require('string-mask');
+var setSelection = require('../../helpers/set-selection');
 
 function isISODateString(date) {
 	return /^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}\.[0-9]{3}([-+][0-9]{2}:[0-9]{2}|Z)$/
@@ -63,6 +64,7 @@ function DateMaskDirective($locale) {
 				if (ctrl.$viewValue !== formatedValue) {
 					ctrl.$setViewValue(formatedValue);
 					ctrl.$render();
+					setSelection(element);
 				}
 
 				return attrs.parse === 'false'

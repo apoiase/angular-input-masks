@@ -1,6 +1,7 @@
 'use strict';
 
 var StringMask = require('string-mask');
+var setSelection = require('../../helpers/set-selection');
 
 function ScientificNotationMaskDirective($locale, $parse) {
 	var decimalDelimiter = $locale.NUMBER_FORMATS.DECIMAL_SEP,
@@ -116,6 +117,7 @@ function ScientificNotationMaskDirective($locale, $parse) {
 				if (ctrl.$viewValue !== viewValue) {
 					ctrl.$setViewValue(viewValue);
 					ctrl.$render();
+					setSelection(element);
 				}
 
 				return modelValue;
